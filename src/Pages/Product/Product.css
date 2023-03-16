@@ -1,0 +1,16 @@
+.productImages{
+    width: 40%;
+}
+.singleProductContainer{
+    display: flex;
+    justify-content: space-around;
+}
+.product_details{
+    width: 46%;
+}
+.pricing{
+    display: flex;
+}
+.pricing>p{
+    margin-right: 10px;
+}

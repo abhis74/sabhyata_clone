@@ -1,0 +1,17 @@
+.container{
+    width: 78%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    grid-gap: 40px;
+    gap: 40px;
+}
+.productsBox{
+    width:21%
+}
+.propductListingPage{
+
+    display: flex;
+    justify-content: space-around;
+
+}
