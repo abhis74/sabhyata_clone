@@ -7,14 +7,37 @@ const ProductFilter = ({ filter, OnAddedFilter }) => {
   console.log(filter, "filter");
 
   const [filterOptions, setFilterOptions] = useState(false);
+  const [test, setTest] = useState(null);
   const [filterArray, setFilterArray] = useState([]);
+  const [toggleFilterArray, settoggleFilterArray] = useState([]);
 
-  const closefilter = () => {
+  const closefilter = (e, i) => {
+    console.log("tthis is close", i, e);
+    // var index = toggleFilterArray.indexOf(i);
+    // if (index !== -1) {
+    //   settoggleFilterArray(splice(index, 1));
+    //   console.log("toggleFilterArray Open", toggleFilterArray);
+    // }
+    setTest(i);
     setFilterOptions(true);
   };
-  const openfilter = () => {
+  const openfilter = (e, i) => {
+    console.log("this is open", i, e);
+    // settoggleFilterArray(toggleFilterArray.push(i));
+    // console.log("toggleFilterArray close", toggleFilterArray);
+    setTest(i);
     setFilterOptions(false);
   };
+
+  // console.log("toggleFilterArray", toggleFilterArray);
+  let toggleFilter = (i) => {
+    if (toggleFilterArray.includes(i)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   const handleChange = (e, filter_lable, value_key, value, code) => {
     if (e.target.checked) {
       var filtetValKey = value_key;
@@ -62,10 +85,18 @@ const ProductFilter = ({ filter, OnAddedFilter }) => {
                 <div className="heading">
                   {item.filter_lable}
                   {filterOptions === false && (
-                    <ArrowDropDownIcon onClick={closefilter} />
+                    <ArrowDropDownIcon
+                      onClick={(e) => {
+                        closefilter(e, index);
+                      }}
+                    />
                   )}
                   {filterOptions === true && (
-                    <ArrowDropUpIcon onClick={openfilter} />
+                    <ArrowDropUpIcon
+                      onClick={(e) => {
+                        openfilter(e, index);
+                      }}
+                    />
                   )}
                 </div>
 
@@ -75,7 +106,7 @@ const ProductFilter = ({ filter, OnAddedFilter }) => {
                       {item.options &&
                         Object.keys(item.options).map((val) => (
                           <>
-                            {filterOptions && (
+                            {index == test && (
                               <li className="filterBox__lable__option">
                                 <label htmlFor={item.options[val].value_key}>
                                   <input

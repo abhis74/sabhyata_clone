@@ -14,3 +14,14 @@
 .pricing>p{
     margin-right: 10px;
 }
+
+.add_to_cart{
+    display: inline-block;
+    padding: 13px;
+    background-color: #e50019;
+    color: #fff;
+    box-shadow: 1px 1px 3px 1px gray;
+    border-radius: 9px;
+    margin-top: 10px;
+    cursor: pointer;
+}
