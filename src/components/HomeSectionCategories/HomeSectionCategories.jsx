@@ -46,6 +46,7 @@ const HomeSectionCategories = ({
   return (
     <>
       <h1>{title}</h1>
+
       {featured_category &&
         featured_category.map((item) => (
           <Link
@@ -67,18 +68,19 @@ const HomeSectionCategories = ({
             </Link>
           )
         )}
-
-      {collection &&
-        collection
-          .filter((collection) => collection.device === "desktop")
-          .map((item) => (
-            <Link
-              to={item.url.replace("category", "products")}
-              key={item.id_banner}
-            >
-              <img src={item.image} alt="" />
-            </Link>
-          ))}
+      <div className="collections">
+        {collection &&
+          collection
+            .filter((collection) => collection.device === "desktop")
+            .map((item) => (
+              <Link
+                to={item.url.replace("category", "products")}
+                key={item.id_banner}
+              >
+                <img src={item.image} alt="" />
+              </Link>
+            ))}
+      </div>
     </>
   );
 };

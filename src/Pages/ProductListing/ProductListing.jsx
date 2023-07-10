@@ -59,6 +59,7 @@ const ProductListing = ({}) => {
           sort_by: "",
           sort_dir: "",
           filter: "",
+          curr_type: "inr",
         },
       });
       setSorting(request.data.result.sort);
@@ -83,8 +84,9 @@ const ProductListing = ({}) => {
           page: 1,
           count: 20,
           sort_by: selectedOption,
-          sort_dir: "",
+          sort_dir: "asc",
           filter: appliedFilter,
+          curr_type: "inr",
         },
       });
 

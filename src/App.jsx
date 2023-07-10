@@ -5,6 +5,7 @@ import ProductListing from "./Pages/ProductListing/ProductListing";
 import Home from "./Pages/Home/Home";
 import Product from "./Pages/Product/Product";
 import Footer from "./layouts/Footer/Footer";
+import Cart from "./Pages/cart/Cart";
 function App() {
   return (
     <>
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/products/:id" element={<ProductListing />} />
         <Route path="/products/:id/:singleproduct" element={<Product />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
       <Footer />
     </>

@@ -7,9 +7,17 @@ import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import UserLogin from "../../components/Login/UserLogin";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const Header = () => {
   const [userloginpopup, setUserloginpopup] = useState(false);
+  const cartQuantityselect = useSelector((state) => state.changeProduct);
+  const [cartQuantity, setcartQuantity] = useState("");
+  useEffect(() => {
+    setcartQuantity(cartQuantityselect);
+  }, [cartQuantityselect]);
+  console.log("cartQuantity>>>>", cartQuantity);
 
   const navBarMenu = [
     {
@@ -69,7 +77,10 @@ const Header = () => {
           <SearchIcon />
           <PermIdentityIcon onClick={login_popUp} />
           <FavoriteBorderIcon />
-          <LocalMallIcon />
+          <Link to={"/cart"} className="cart">
+            <LocalMallIcon />
+            <span className="cartQty">{cartQuantity.count}</span>
+          </Link>
         </div>
       </div>
       <UserLogin

@@ -1,0 +1,11 @@
+.collections {
+  display: flex;
+  justify-content: space-around;
+}
+.collections a {
+  width: 28%;
+}
+.collections a img {
+  width: 100%;
+  object-fit: contain;
+}

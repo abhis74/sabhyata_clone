@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import "./ProductFilter.css";
+import { borderRadius } from "@mui/system";
 
 const ProductFilter = ({ filter, OnAddedFilter }) => {
   console.log(filter, "filter");
@@ -9,41 +10,27 @@ const ProductFilter = ({ filter, OnAddedFilter }) => {
   const [filterOptions, setFilterOptions] = useState(false);
   const [test, setTest] = useState(null);
   const [filterArray, setFilterArray] = useState([]);
-  const [toggleFilterArray, settoggleFilterArray] = useState([]);
 
   const closefilter = (e, i) => {
     console.log("tthis is close", i, e);
-    // var index = toggleFilterArray.indexOf(i);
-    // if (index !== -1) {
-    //   settoggleFilterArray(splice(index, 1));
-    //   console.log("toggleFilterArray Open", toggleFilterArray);
-    // }
     setTest(i);
     setFilterOptions(true);
   };
   const openfilter = (e, i) => {
     console.log("this is open", i, e);
-    // settoggleFilterArray(toggleFilterArray.push(i));
-    // console.log("toggleFilterArray close", toggleFilterArray);
     setTest(i);
     setFilterOptions(false);
   };
-
-  // console.log("toggleFilterArray", toggleFilterArray);
-  let toggleFilter = (i) => {
-    if (toggleFilterArray.includes(i)) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
   const handleChange = (e, filter_lable, value_key, value, code) => {
     if (e.target.checked) {
-      var filtetValKey = value_key;
+      var filtetValKey = value;
+      console.log("filtetValKey", filtetValKey);
       setFilterArray((state) => {
         if (filter_lable.toLowerCase() === "price") {
           filtetValKey = filtetValKey.replace(",", " to ");
+        }
+        if (filter_lable.toLowerCase() === "discount") {
+          filtetValKey = filtetValKey.replace(/\s/g, "+");
         }
 
         if (e.target.value) {
@@ -78,64 +65,91 @@ const ProductFilter = ({ filter, OnAddedFilter }) => {
   return (
     <div className="filterBox">
       {filter &&
-        filter.map((item, index) => {
-          return (
-            <>
-              <div key={index} className="filterBox__lable">
-                <div className="heading">
-                  {item.filter_lable}
-                  {filterOptions === false && (
-                    <ArrowDropDownIcon
-                      onClick={(e) => {
-                        closefilter(e, index);
-                      }}
-                    />
-                  )}
-                  {filterOptions === true && (
-                    <ArrowDropUpIcon
-                      onClick={(e) => {
-                        openfilter(e, index);
-                      }}
-                    />
-                  )}
-                </div>
-
-                {
-                  <div>
-                    <ul>
-                      {item.options &&
-                        Object.keys(item.options).map((val) => (
-                          <>
-                            {index == test && (
-                              <li className="filterBox__lable__option">
-                                <label htmlFor={item.options[val].value_key}>
-                                  <input
-                                    type="checkbox"
-                                    id={item.options[val].value_key}
-                                    value={item.options[val].value}
-                                    onChange={(e) =>
-                                      handleChange(
-                                        e,
-                                        item.filter_lable,
-                                        item.options[val].value_key,
-                                        item.options[val].value,
-                                        item.options[val].code
-                                      )
-                                    }
-                                  />{" "}
-                                  {item.options[val].value}
-                                </label>
-                              </li>
-                            )}
-                          </>
-                        ))}
-                    </ul>
+        filter
+          .filter((filter) => {
+            if (
+              filter.filter_lable !== "USD Discount" &&
+              filter.filter_lable !== "GBP Discount" &&
+              filter.filter_lable !== "EUR Discount" &&
+              filter.filter_lable !== "AUD Discount" &&
+              filter.filter_lable !== "CAD Discount" &&
+              filter.filter_lable !== "AED Discount"
+            ) {
+              return filter.filter_lable;
+            }
+          })
+          .map((item, index) => {
+            return (
+              <>
+                <div key={index} className="filterBox__lable">
+                  <div className="heading">
+                    {item.filter_lable}
+                    {filterOptions === false && (
+                      <ArrowDropDownIcon
+                        onClick={(e) => {
+                          closefilter(e, index);
+                        }}
+                      />
+                    )}
+                    {filterOptions === true && (
+                      <ArrowDropUpIcon
+                        onClick={(e) => {
+                          openfilter(e, index);
+                        }}
+                      />
+                    )}
                   </div>
-                }
-              </div>
-            </>
-          );
-        })}
+
+                  {
+                    <div>
+                      <ul>
+                        {item.options &&
+                          Object.keys(item.options).map((val) => (
+                            <>
+                              {index === test && (
+                                <li className="filterBox__lable__option">
+                                  <label
+                                    htmlFor={item.options[val].value_key}
+                                    className="color_options"
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      id={item.options[val].value_key}
+                                      value={item.options[val].value}
+                                      onChange={(e) =>
+                                        handleChange(
+                                          e,
+                                          item.filter_lable,
+                                          item.options[val].value_key,
+                                          item.options[val].value,
+                                          item.options[val].code
+                                        )
+                                      }
+                                    />{" "}
+                                    <div className="colorSwites">
+                                      <div
+                                        style={{
+                                          backgroundColor:
+                                            item.options[val].value,
+                                          height: "13px",
+                                          width: "13px",
+                                          borderRadius: "50%",
+                                        }}
+                                      ></div>{" "}
+                                      <span>{item.options[val].value}</span>
+                                    </div>
+                                  </label>
+                                </li>
+                              )}
+                            </>
+                          ))}
+                      </ul>
+                    </div>
+                  }
+                </div>
+              </>
+            );
+          })}
     </div>
   );
 };

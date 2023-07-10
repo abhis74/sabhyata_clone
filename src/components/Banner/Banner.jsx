@@ -32,7 +32,11 @@ const Banner = (props) => {
     <div>
       <Slider {...settings}>
         {bannerData
-          .filter((bannerData) => bannerData.device === "desktop")
+          .filter(
+            (bannerData) =>
+              bannerData.device === "desktop" &&
+              bannerData.is_multicurrency === "no"
+          )
           .map((item) => (
             <Link
               to={item.url.replace("category", "products")}

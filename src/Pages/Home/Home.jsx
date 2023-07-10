@@ -3,7 +3,7 @@ import Banner from "../../components/Banner/Banner";
 import HomeBannerVideoAndImg from "../../components/HomeBannerVideoAndImg/HomeBannerVideoAndImg";
 import HomeSectionCategories from "../../components/HomeSectionCategories/HomeSectionCategories";
 import requests from "../../Api/Requests/request";
-
+import "./Home.css";
 const videos =
   "https://kxadmin.sabhyataclothing.com/video/sabhyata_2022_diwali_video.mp4";
 const videotitle = "Redefine Celebrations";
